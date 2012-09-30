@@ -3523,6 +3523,13 @@ copy_forbidden (struct function *fun)
   if (fun->cannot_be_copied_set)
     return reason;
 
+  if (!flag_clone_functions)
+    {
+      reason = G_("function %q+F can never be copied "
+		  "due to -fno-clone-functions");
+      goto fail;
+    }
+
   /* We cannot copy a function that receives a non-local goto
      because we cannot remap the destination label used in the
      function that is performing the non-local goto.  */
